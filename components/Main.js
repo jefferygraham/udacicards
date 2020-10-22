@@ -49,7 +49,7 @@ class Main extends React.Component {
       //   <Stack.Screen name='Deck 1' component={AddQuestion} />
       //   <Stack.Screen name='Quiz' component={Quiz} />
       // </Stack.Navigator>
-      <AddCard />
+      <Quiz />
     );
   }
 }
