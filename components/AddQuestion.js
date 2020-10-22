@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-class NewQuestion extends Component {
+class AddQuestion extends Component {
   render() {
     return (
       <View>
@@ -11,4 +11,4 @@ class NewQuestion extends Component {
   }
 }
 
-export default NewQuestion;
+export default AddQuestion;
