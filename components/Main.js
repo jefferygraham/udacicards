@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import DeckList from './DeckList';
 import AddDeck from './AddDeck';
-import AddQuestion from './AddQuestion';
+import AddCard from './AddCard';
 import Deck from './Deck';
 import Quiz from './Quiz';
 
@@ -49,7 +49,7 @@ class Main extends React.Component {
       //   <Stack.Screen name='Deck 1' component={AddQuestion} />
       //   <Stack.Screen name='Quiz' component={Quiz} />
       // </Stack.Navigator>
-      <Deck />
+      <AddCard />
     );
   }
 }
