@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, Text, StyleSheet } from 'react-native';
 
 class Deck extends Component {
   render() {
     return (
-      <View>
-        <Text>DECK</Text>
-      </View>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          marginTop: StatusBar.currentHeight || 0,
+        }}
+      >
+        <View>
+          <Text>DECK 1</Text>
+          <Text># of cards</Text>
+        </View>
+      </SafeAreaView>
     );
   }
 }
