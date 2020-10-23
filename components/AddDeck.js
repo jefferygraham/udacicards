@@ -8,8 +8,35 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import { connect } from 'react-redux';
+
+import { addDeck } from '../actions';
+import { saveDeckTitle } from '../utils/api';
 
 class AddDeck extends Component {
+  state = {
+    newDeckTitle: '',
+  };
+
+  submit = () => {
+    const { newDeckTitle } = this.state;
+
+    const deck = {
+      [newDeckTitle]: {
+        title: newDeckTitle,
+        questions: [],
+      },
+    };
+
+    this.props.dispatch(addDeck(deck));
+
+    this.setState(() => ({
+      newDeckTitle: '',
+    }));
+
+    saveDeckTitle(deck);
+  };
+
   render() {
     return (
       <SafeAreaView
@@ -24,12 +51,10 @@ class AddDeck extends Component {
           <Text>TITLE OF NEW DECK</Text>
           <TextInput
             style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            onChangeText={(text) => this.setState({ newDeckTitle: text })}
           />
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => alert('pressed!')}
-        >
+        <TouchableOpacity style={styles.button} onPress={this.submit}>
           <Text>Press Here</Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -45,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddDeck;
+export default connect()(AddDeck);

@@ -12,3 +12,7 @@ import { DECK_STORAGE_KEY, setData } from './_DATA';
 export function getDecks() {
   return AsyncStorage.getItem(DECK_STORAGE_KEY).then(setData);
 }
+
+export function saveDeckTitle(deck) {
+  return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(deck));
+}

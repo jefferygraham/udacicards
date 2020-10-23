@@ -8,6 +8,8 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import { addDeck } from '../actions';
+
 function Deck({ route, navigation }) {
   const { deckTitle } = route.params;
   const { navigate } = navigation;
