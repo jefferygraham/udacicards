@@ -1,4 +1,6 @@
-import { _getDecks } from './_DATA';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { DECK_STORAGE_KEY, setData } from './_DATA';
 
 // getDecks(): return all of the decks along with their titles, questions, and answers.
 // getDeck(deckId): take in a single id argument and return the deck associated with that id.
@@ -8,5 +10,5 @@ import { _getDecks } from './_DATA';
 // Notice each deck creates a new key on the object. Each deck has a title and a questions key. title is the title for the specific deck and questions is an array of questions and answers for that deck.
 
 export function getDecks() {
-  return _getDecks().then((decks) => ({ decks }));
+  return AsyncStorage.getItem(DECK_STORAGE_KEY).then(setData);
 }

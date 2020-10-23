@@ -4,7 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { handleInitialData } from '../actions';
+import { receiveDecks } from '../actions';
+import { getDecks } from '../utils/api';
 import DeckList from './DeckList';
 import AddDeck from './AddDeck';
 import AddCard from './AddCard';
@@ -44,7 +45,9 @@ const Stack = createStackNavigator();
 
 class Main extends React.Component {
   componentDidMount() {
-    this.props.dispatch(handleInitialData());
+    const { dispatch } = this.props;
+
+    getDecks().then((decks) => dispatch(receiveDecks(decks)));
   }
   render() {
     return (
@@ -76,7 +79,7 @@ class Main extends React.Component {
   }
 }
 
-function mapStateToProps({ decks }) {
+function mapStateToProps(decks) {
   return {
     decks,
   };

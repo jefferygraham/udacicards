@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
-  View,
   Text,
   FlatList,
   SafeAreaView,
@@ -8,20 +8,20 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const DATA = [
-  {
-    id: '1',
-    title: 'First Item',
-  },
-  {
-    id: '2',
-    title: 'Second Item',
-  },
-  {
-    id: '3',
-    title: 'Third Item',
-  },
-];
+// const DATA = [
+//   {
+//     id: '1',
+//     title: 'First Item',
+//   },
+//   {
+//     id: '2',
+//     title: 'Second Item',
+//   },
+//   {
+//     id: '3',
+//     title: 'Third Item',
+//   },
+// ];
 
 class DeckList extends Component {
   render() {
@@ -46,13 +46,23 @@ class DeckList extends Component {
         }}
       >
         <FlatList
-          data={DATA}
+          data={this.props.deckTitles}
           renderItem={renderDeck}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.title}
         />
       </SafeAreaView>
     );
   }
 }
 
-export default DeckList;
+function mapStateToProps(state) {
+  const deckTitles = Object.keys(state).map((deck) => ({
+    title: state[deck].title,
+  }));
+
+  return {
+    deckTitles,
+  };
+}
+
+export default connect(mapStateToProps)(DeckList);
