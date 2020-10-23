@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { handleInitialData } from '../actions';
 import DeckList from './DeckList';
 import AddDeck from './AddDeck';
 import AddCard from './AddCard';
@@ -10,7 +12,7 @@ import Deck from './Deck';
 import Quiz from './Quiz';
 
 const Tab = createBottomTabNavigator();
-function Home({ navigation }) {
+function Home() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -41,6 +43,9 @@ function Home({ navigation }) {
 const Stack = createStackNavigator();
 
 class Main extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(handleInitialData());
+  }
   render() {
     return (
       <Stack.Navigator>
@@ -71,4 +76,10 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+function mapStateToProps({ decks }) {
+  return {
+    decks,
+  };
+}
+
+export default connect(mapStateToProps)(Main);
