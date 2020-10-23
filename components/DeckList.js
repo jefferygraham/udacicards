@@ -1,30 +1,41 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, SafeAreaView, StatusBar } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  TouchableOpacity,
+} from 'react-native';
 
 const DATA = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: '1',
     title: 'First Item',
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    id: '2',
     title: 'Second Item',
   },
   {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    id: '3',
     title: 'Third Item',
   },
 ];
 
-const Deck = ({ title }) => (
-  <View>
-    <Text>{title}</Text>
-  </View>
-);
-
 class DeckList extends Component {
   render() {
-    const renderDeck = ({ item }) => <Deck title={item.title} />;
+    const { navigate } = this.props.navigation;
+
+    const renderDeck = ({ item }) => {
+      return (
+        <TouchableOpacity
+          onPress={() => navigate('Deck', { deckTitle: item.title })}
+        >
+          <Text style={{ textAlign: 'center' }}>{item.title}</Text>
+        </TouchableOpacity>
+      );
+    };
 
     return (
       <SafeAreaView

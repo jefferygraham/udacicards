@@ -10,7 +10,7 @@ import Deck from './Deck';
 import Quiz from './Quiz';
 
 const Tab = createBottomTabNavigator();
-function Home() {
+function Home({ navigation }) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -43,13 +43,30 @@ const Stack = createStackNavigator();
 class Main extends React.Component {
   render() {
     return (
-      // <Stack.Navigator>
-      //   <Stack.Screen name='Home' component={Home} />
-      //   <Stack.Screen name='Deck 1' component={Deck} />
-      //   <Stack.Screen name='Deck 1' component={AddQuestion} />
-      //   <Stack.Screen name='Quiz' component={Quiz} />
-      // </Stack.Navigator>
-      <Quiz />
+      <Stack.Navigator>
+        <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen
+          name='Deck'
+          component={Deck}
+          options={({ route }) => ({
+            headerTitle: route.params.deckTitle,
+          })}
+        />
+        <Stack.Screen
+          name='AddCard'
+          component={AddCard}
+          options={({ route }) => ({
+            headerTitle: route.params.deckTitle,
+          })}
+        />
+        <Stack.Screen
+          name='Quiz'
+          component={Quiz}
+          options={({ route }) => ({
+            headerTitle: `${route.params.deckTitle} Quiz`,
+          })}
+        />
+      </Stack.Navigator>
     );
   }
 }
