@@ -30,11 +30,11 @@ class AddDeck extends Component {
 
     this.props.dispatch(addDeck(deck));
 
+    saveDeckTitle(newDeckTitle);
+
     this.setState(() => ({
       newDeckTitle: '',
     }));
-
-    saveDeckTitle(deck);
   };
 
   render() {
@@ -52,10 +52,20 @@ class AddDeck extends Component {
           <TextInput
             style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
             onChangeText={(text) => this.setState({ newDeckTitle: text })}
+            value={this.state.newDeckTitle}
+            placeholder='Deck Title'
           />
         </View>
-        <TouchableOpacity style={styles.button} onPress={this.submit}>
-          <Text>Press Here</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.submit();
+            this.props.navigation.navigate('Deck', {
+              deckTitle: this.state.newDeckTitle,
+            });
+          }}
+        >
+          <Text>ADD DECK</Text>
         </TouchableOpacity>
       </SafeAreaView>
     );

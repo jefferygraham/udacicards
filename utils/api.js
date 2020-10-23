@@ -13,6 +13,12 @@ export function getDecks() {
   return AsyncStorage.getItem(DECK_STORAGE_KEY).then(setData);
 }
 
-export function saveDeckTitle(deck) {
+export function saveDeckTitle(title) {
+  const deck = {
+    [title]: {
+      title: title,
+      questions: [],
+    },
+  };
   return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(deck));
 }
