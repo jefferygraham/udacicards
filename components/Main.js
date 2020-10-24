@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  HeaderBackButton,
+} from '@react-navigation/stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { receiveDecks } from '../actions';
@@ -16,6 +19,7 @@ const Tab = createBottomTabNavigator();
 function Home() {
   return (
     <Tab.Navigator
+      initialRouteName='DeckList'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -56,8 +60,15 @@ class Main extends React.Component {
         <Stack.Screen
           name='Deck'
           component={Deck}
-          options={({ route }) => ({
+          options={({ route, navigation }) => ({
             headerTitle: route.params.deckTitle,
+            headerLeft: () => (
+              <HeaderBackButton
+                onPress={() => {
+                  navigation.push('Home');
+                }}
+              />
+            ),
           })}
         />
         <Stack.Screen
