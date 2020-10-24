@@ -30,7 +30,9 @@ class DeckList extends Component {
     const renderDeck = ({ item }) => {
       return (
         <TouchableOpacity
-          onPress={() => navigate('Deck', { deckTitle: item.title })}
+          onPress={() =>
+            navigate('Deck', { deckTitle: item.title, deck: item })
+          }
         >
           <Text style={{ textAlign: 'center' }}>{item.title}</Text>
         </TouchableOpacity>
@@ -58,6 +60,7 @@ class DeckList extends Component {
 function mapStateToProps(state) {
   const deckTitles = Object.keys(state).map((deck) => ({
     title: state[deck].title,
+    questions: state[deck].questions,
   }));
 
   return {

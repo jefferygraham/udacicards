@@ -53,6 +53,7 @@ class Main extends React.Component {
 
     getDecks().then((decks) => dispatch(receiveDecks(decks)));
   }
+
   render() {
     return (
       <Stack.Navigator>

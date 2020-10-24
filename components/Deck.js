@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import {
   SafeAreaView,
   View,
@@ -8,11 +9,12 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import { addDeck } from '../actions';
-
-function Deck({ route, navigation }) {
+function Deck({ route, navigation, decks }) {
   const { deckTitle } = route.params;
   const { navigate } = navigation;
+
+  const deck = decks[deckTitle];
+  let numCards = deck.questions.length;
 
   return (
     <SafeAreaView
@@ -25,7 +27,7 @@ function Deck({ route, navigation }) {
     >
       <View>
         <Text style={{ textAlign: 'center' }}>{deckTitle}</Text>
-        <Text style={{ textAlign: 'center' }}># of cards</Text>
+        <Text style={{ textAlign: 'center' }}>{numCards} card(s)</Text>
       </View>
 
       <View>
@@ -57,4 +59,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Deck;
+function mapStateToProps(state) {
+  return {
+    decks: state,
+  };
+}
+
+export default connect(mapStateToProps)(Deck);
