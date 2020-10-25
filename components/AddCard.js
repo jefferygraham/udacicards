@@ -34,6 +34,9 @@ class AddCard extends Component {
 
   render() {
     const { deckTitle } = this.props.route.params;
+    const {
+      navigation: { goBack },
+    } = this.props;
 
     return (
       <SafeAreaView
@@ -60,7 +63,10 @@ class AddCard extends Component {
         </View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => this.handlePress(deckTitle)}
+          onPress={() => {
+            this.handlePress(deckTitle);
+            goBack();
+          }}
         >
           <Text>SUBMIT</Text>
         </TouchableOpacity>

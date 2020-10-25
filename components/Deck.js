@@ -9,12 +9,18 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import { deleteDeck } from '../utils/api';
+
 function Deck({ route, navigation, decks }) {
   const { deckTitle } = route.params;
   const { navigate } = navigation;
 
   const deck = decks[deckTitle];
   let numCards = deck.questions.length;
+
+  handlePress = (deckTitle) => {
+    deleteDeck(deckTitle);
+  };
 
   return (
     <SafeAreaView
@@ -43,7 +49,11 @@ function Deck({ route, navigation, decks }) {
         >
           <Text>Start Quiz</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => alert('deleting deck!')}>
+        <TouchableOpacity
+          onPress={() => {
+            handlePress(deckTitle);
+          }}
+        >
           <Text style={{ textAlign: 'center' }}>Delete Deck</Text>
         </TouchableOpacity>
       </View>
