@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -26,17 +27,44 @@ class Quiz extends Component {
         showQuestion: true,
         answered: false,
       }));
+    } else {
+      Alert.alert(
+        'Score',
+        `${this.state.right} out of ${
+          this.state.right + this.state.wrong
+        } correct. \n${(
+          (this.state.right / (this.state.right + this.state.wrong)) *
+          100
+        ).toFixed(0)}%`,
+        [
+          {
+            text: 'Restart Quiz',
+            onPress: () =>
+              this.setState({
+                showQuestion: true,
+                answered: false,
+                questionIdx: 0,
+                right: 0,
+                wrong: 0,
+              }),
+            style: 'cancel',
+          },
+          {
+            text: 'Back to Deck',
+            onPress: () =>
+              this.props.navigation.navigate('Deck', { deckTitle }),
+          },
+        ],
+        { cancelable: false }
+      );
     }
   };
 
   handlePress = (choice) => {
-    this.setState(
-      () => ({
-        answered: true,
-        [choice]: this.state[choice] + 1,
-      }),
-      console.log(JSON.stringify(this.state))
-    );
+    this.setState(() => ({
+      answered: true,
+      [choice]: this.state[choice] + 1,
+    }));
   };
 
   render() {
