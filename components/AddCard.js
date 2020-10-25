@@ -8,32 +8,62 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import { connect } from 'react-redux';
 
-function AddCard() {
-  return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        marginTop: StatusBar.currentHeight || 0,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-      }}
-    >
-      <View>
-        <TextInput
-          placeholder='Question?'
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-        />
-        <TextInput
-          placeholder='Answer'
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-        />
-      </View>
-      <TouchableOpacity style={styles.button}>
-        <Text>SUBMIT</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
-  );
+import { addCard } from '../actions';
+
+class AddCard extends Component {
+  state = {
+    question: '',
+    answer: '',
+  };
+
+  handlePress = (deckTitle) => {
+    const card = this.state;
+
+    this.props.dispatch(addCard(deckTitle, card));
+
+    this.setState({
+      question: '',
+      answer: '',
+    });
+  };
+
+  render() {
+    const { deckTitle } = this.props.route.params;
+
+    return (
+      <SafeAreaView
+        style={{
+          flex: 1,
+          marginTop: StatusBar.currentHeight || 0,
+          alignItems: 'center',
+          justifyContent: 'space-around',
+        }}
+      >
+        <View>
+          <TextInput
+            placeholder='Question?'
+            value={this.state.question}
+            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            onChangeText={(question) => this.setState({ question: question })}
+          />
+          <TextInput
+            placeholder='Answer'
+            value={this.state.answer}
+            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            onChangeText={(answer) => this.setState({ answer: answer })}
+          />
+        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.handlePress(deckTitle)}
+        >
+          <Text>SUBMIT</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -44,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddCard;
+export default connect()(AddCard);
