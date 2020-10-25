@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 
 import { addCard } from '../actions';
+import { addCardToDeck } from '../utils/api';
 
 class AddCard extends Component {
   state = {
@@ -27,6 +28,8 @@ class AddCard extends Component {
       question: '',
       answer: '',
     });
+
+    addCardToDeck(deckTitle, card);
   };
 
   render() {
