@@ -95,6 +95,7 @@ class Quiz extends Component {
                 {deck.questions[this.state.questionIdx].question}
               </Text>
               <TouchableOpacity
+                delayPressIn={0}
                 onPress={() => this.setState({ showQuestion: false })}
               >
                 <Text style={{ textAlign: 'center' }}>Answer</Text>
@@ -106,6 +107,7 @@ class Quiz extends Component {
                 {deck.questions[this.state.questionIdx].answer}
               </Text>
               <TouchableOpacity
+                delayPressIn={0}
                 onPress={() => this.setState({ showQuestion: true })}
               >
                 <Text style={{ textAlign: 'center' }}>Question</Text>
@@ -115,6 +117,7 @@ class Quiz extends Component {
           <View>
             <TouchableOpacity
               style={styles.button}
+              delayPressIn={0}
               onPress={() => this.handlePress('right')}
               disabled={this.state.showQuestion || this.state.answered}
             >
@@ -122,6 +125,7 @@ class Quiz extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
+              delayPressIn={0}
               onPress={() => this.handlePress('wrong')}
               disabled={this.state.showQuestion || this.state.answered}
             >
@@ -130,6 +134,7 @@ class Quiz extends Component {
           </View>
           <View>
             <TouchableOpacity
+              delayPressIn={0}
               style={styles.button}
               onPress={() => this.nextQuestion(decks, deckTitle)}
               disabled={!this.state.answered}

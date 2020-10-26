@@ -58,6 +58,7 @@ class AddDeck extends Component {
         </View>
         <TouchableOpacity
           style={styles.button}
+          delayPressIn={0}
           onPress={() => {
             this.submit();
             this.props.navigation.navigate('Deck', {

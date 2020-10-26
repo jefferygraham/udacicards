@@ -62,6 +62,7 @@ class AddCard extends Component {
           />
         </View>
         <TouchableOpacity
+          delayPressIn={0}
           style={styles.button}
           onPress={() => {
             this.handlePress(deckTitle);

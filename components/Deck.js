@@ -38,18 +38,21 @@ function Deck({ route, navigation, decks }) {
 
       <View>
         <TouchableOpacity
+          delayPressIn={0}
           style={styles.button}
           onPress={() => navigate('AddCard', { deckTitle })}
         >
           <Text>Add Card</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          delayPressIn={0}
           style={styles.button}
           onPress={() => navigate('Quiz', { deckTitle })}
         >
           <Text>Start Quiz</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          delayPressIn={0}
           onPress={() => {
             handlePress(deckTitle);
           }}
