@@ -1,6 +1,48 @@
-// getDecks(): return all of the decks along with their titles, questions, and answers.
-// getDeck(deckId): take in a single id argument and return the deck associated with that id.
-// saveDeckTitle(title): take in a single title argument and add it to the decks.
-// addCardToDeck(title, card): take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title.
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 
-// Notice each deck creates a new key on the object. Each deck has a title and a questions key. title is the title for the specific deck and questions is an array of questions and answers for that deck.
+const NOTIFICATION_KEY = 'UdaciCards:notifications';
+
+export function clearLocalNotifications() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(() => {
+    Notifications.cancelAllScheduledNotificationsAsync();
+    console.log('Notification cleared for: ', new Date().toLocaleDateString());
+  });
+}
+
+export function setLocalNotification() {
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then(JSON.parse)
+    .then((data) => {
+      console.log('notif key data:', data);
+      if (data === null) {
+        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+          if (status === 'granted') {
+            Notifications.cancelAllScheduledNotificationsAsync();
+
+            Notifications.setNotificationHandler({
+              handleNotification: async () => ({
+                shouldPlaySound: true,
+                shouldShowAlert: true,
+                shouldSetBadge: false,
+              }),
+            });
+
+            let tomorrow = new Date();
+            tomorrow.setHours(17);
+            tomorrow.setMinutes(0);
+            Notifications.scheduleNotificationAsync({
+              content: {
+                title: '👋 TIME TO PRACTICE!!!',
+                body: 'Practice prevents poor performance',
+              },
+              trigger: tomorrow,
+            });
+
+            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+          }
+        });
+      }
+    });
+}

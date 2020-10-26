@@ -9,15 +9,22 @@ import { StyleSheet } from 'react-native';
 
 import Main from './components/Main';
 import reducer from './reducers';
+import { setLocalNotification, clearLocalNotifications } from './utils/helpers';
 
-export default function App() {
-  return (
-    <Provider store={createStore(reducer, applyMiddleware(thunk, logger))}>
-      <NavigationContainer>
-        <Main />
-      </NavigationContainer>
-    </Provider>
-  );
+export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
+  render() {
+    return (
+      <Provider store={createStore(reducer, applyMiddleware(thunk, logger))}>
+        <NavigationContainer>
+          <Main />
+        </NavigationContainer>
+      </Provider>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
