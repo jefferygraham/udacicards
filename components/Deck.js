@@ -32,8 +32,12 @@ function Deck({ route, navigation, decks }) {
       }}
     >
       <View>
-        <Text style={{ textAlign: 'center' }}>{deckTitle}</Text>
-        <Text style={{ textAlign: 'center' }}>{numCards} card(s)</Text>
+        <Text style={{ textAlign: 'center', fontSize: 21, marginBottom: 5 }}>
+          {deckTitle}
+        </Text>
+        <Text style={{ textAlign: 'center', fontSize: 18 }}>
+          {numCards} card(s)
+        </Text>
       </View>
 
       <View>
@@ -42,14 +46,14 @@ function Deck({ route, navigation, decks }) {
           style={styles.button}
           onPress={() => navigate('AddCard', { deckTitle })}
         >
-          <Text>Add Card</Text>
+          <Text style={{ color: 'white' }}>Add Card</Text>
         </TouchableOpacity>
         <TouchableOpacity
           delayPressIn={0}
           style={styles.button}
           onPress={() => navigate('Quiz', { deckTitle })}
         >
-          <Text>Start Quiz</Text>
+          <Text style={{ color: 'white' }}>Start Quiz</Text>
         </TouchableOpacity>
         <TouchableOpacity
           delayPressIn={0}
@@ -57,7 +61,9 @@ function Deck({ route, navigation, decks }) {
             handlePress(deckTitle);
           }}
         >
-          <Text style={{ textAlign: 'center' }}>Delete Deck</Text>
+          <Text style={{ textAlign: 'center', color: 'black' }}>
+            Delete Deck
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -67,8 +73,11 @@ function Deck({ route, navigation, decks }) {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
+    backgroundColor: 'tomato',
+    padding: 15,
+    borderRadius: 5,
+    marginHorizontal: 20,
+    marginBottom: 10,
   },
 });
 
