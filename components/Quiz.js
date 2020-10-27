@@ -21,7 +21,14 @@ class Quiz extends Component {
 
   nextQuestion = (decks, deckTitle) => {
     let numQuestions = decks[deckTitle].questions.length;
-    if (this.state.questionIdx < numQuestions - 1) {
+    if (this.state.answered === false) {
+      Alert.alert(
+        'Alert',
+        'Please mark correct or incorrect before proceeding to the next question!',
+        [{ text: 'OK' }],
+        { cancelable: false }
+      );
+    } else if (this.state.questionIdx < numQuestions - 1) {
       this.setState(() => ({
         questionIdx: this.state.questionIdx + 1,
         showQuestion: true,
@@ -61,14 +68,23 @@ class Quiz extends Component {
   };
 
   handlePress = (choice) => {
-    this.setState(() => ({
-      answered: true,
-      [choice]: this.state[choice] + 1,
-    }));
+    if (this.state.answered === true) {
+      Alert.alert(
+        'Alert',
+        'A response has already been recorded!',
+        [{ text: 'OK' }],
+        { cancelable: false }
+      );
+    } else {
+      this.setState(() => ({
+        answered: true,
+        [choice]: this.state[choice] + 1,
+      }));
+    }
   };
 
   render() {
-    const { navigation, route, decks } = this.props;
+    const { route, decks } = this.props;
     const { deckTitle } = route.params;
 
     const deck = decks[deckTitle];
@@ -143,7 +159,6 @@ class Quiz extends Component {
                 style={[styles.button, styles.rightBtn, { width: 75 }]}
                 delayPressIn={0}
                 onPress={() => this.handlePress('right')}
-                disabled={this.state.showQuestion || this.state.answered}
               >
                 <Text style={{ textAlign: 'center', color: 'white' }}>
                   Correct
@@ -153,7 +168,6 @@ class Quiz extends Component {
                 style={[styles.button, styles.wrongBtn, { width: 75 }]}
                 delayPressIn={0}
                 onPress={() => this.handlePress('wrong')}
-                disabled={this.state.showQuestion || this.state.answered}
               >
                 <Text style={{ textAlign: 'center', color: 'white' }}>
                   Incorrect
@@ -165,7 +179,6 @@ class Quiz extends Component {
                 delayPressIn={0}
                 style={[styles.button, styles.NextBtn]}
                 onPress={() => this.nextQuestion(decks, deckTitle)}
-                disabled={!this.state.answered}
               >
                 <Text style={{ textAlign: 'center', color: 'white' }}>
                   Next
