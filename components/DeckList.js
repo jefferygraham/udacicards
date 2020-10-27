@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Text,
   FlatList,
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
   StyleSheet,
+  Image,
 } from 'react-native';
+import { Card, Tile } from 'react-native-elements';
 
 class DeckList extends Component {
   render() {
@@ -16,13 +17,19 @@ class DeckList extends Component {
     const renderDeck = ({ item }) => {
       return (
         <TouchableOpacity
-          style={styles.button}
           delayPressIn={0}
           onPress={() =>
             navigate('Deck', { deckTitle: item.title, deck: item })
           }
         >
-          <Text style={{ textAlign: 'center' }}>{item.title}</Text>
+          <Card containerStyle={{ alignItems: 'center' }}>
+            <Card.Title>{item.title.toUpperCase()}</Card.Title>
+            <Card.Divider />
+            <Image
+              source={require('./images/flash-card.png')}
+              resizeMode='contain'
+            />
+          </Card>
         </TouchableOpacity>
       );
     };
@@ -32,7 +39,7 @@ class DeckList extends Component {
         style={{
           flex: 1,
           marginTop: StatusBar.currentHeight || 0,
-          alignItems: 'center',
+          alignItems: 'stretch',
         }}
       >
         <FlatList
@@ -46,19 +53,9 @@ class DeckList extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 10,
-  },
   button: {
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
-    padding: 10,
-  },
-  countContainer: {
-    alignItems: 'center',
-    padding: 10,
   },
 });
 

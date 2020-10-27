@@ -5,11 +5,10 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
 
 import Main from './components/Main';
 import reducer from './reducers';
-import { setLocalNotification, clearLocalNotifications } from './utils/helpers';
+import { setLocalNotification } from './utils/helpers';
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -26,12 +25,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

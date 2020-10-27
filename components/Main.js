@@ -16,6 +16,7 @@ import Deck from './Deck';
 import Quiz from './Quiz';
 
 const Tab = createBottomTabNavigator();
+
 function Home() {
   return (
     <Tab.Navigator
