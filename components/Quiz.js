@@ -79,70 +79,101 @@ class Quiz extends Component {
           flex: 1,
           marginTop: StatusBar.currentHeight || 0,
           alignItems: 'center',
+          marginHorizontal: 5,
         }}
       >
         <View style={{ alignSelf: 'flex-start' }}>
           <Text>
             {this.state.questionIdx + 1}/{deck.questions.length}
           </Text>
-          <Text>Right: {this.state.right}</Text>
-          <Text>Wrong: {this.state.wrong}</Text>
         </View>
-        <View style={{ flex: 1, justifyContent: 'space-around' }}>
+        <View style={{ flex: 1, paddingTop: 25 }}>
           {this.state.showQuestion ? (
             <View>
-              <Text style={{ textAlign: 'center' }}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  paddingVertical: 10,
+                  fontSize: 21,
+                }}
+              >
                 {deck.questions[this.state.questionIdx].question}
               </Text>
               <TouchableOpacity
                 delayPressIn={0}
                 onPress={() => this.setState({ showQuestion: false })}
               >
-                <Text style={{ textAlign: 'center' }}>Answer</Text>
+                <Text style={{ textAlign: 'center', fontSize: 18 }}>
+                  Answer
+                </Text>
               </TouchableOpacity>
             </View>
           ) : (
             <View>
-              <Text style={{ textAlign: 'center' }}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  paddingVertical: 10,
+                  fontSize: 21,
+                }}
+              >
                 {deck.questions[this.state.questionIdx].answer}
               </Text>
               <TouchableOpacity
                 delayPressIn={0}
                 onPress={() => this.setState({ showQuestion: true })}
               >
-                <Text style={{ textAlign: 'center' }}>Question</Text>
+                <Text style={{ textAlign: 'center', fontSize: 18 }}>
+                  Question
+                </Text>
               </TouchableOpacity>
             </View>
           )}
-          <View>
-            <TouchableOpacity
-              style={styles.button}
-              delayPressIn={0}
-              onPress={() => this.handlePress('right')}
-              disabled={this.state.showQuestion || this.state.answered}
-            >
-              <Text style={{ textAlign: 'center' }}>Correct</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              delayPressIn={0}
-              onPress={() => this.handlePress('wrong')}
-              disabled={this.state.showQuestion || this.state.answered}
-            >
-              <Text style={{ textAlign: 'center' }}>Incorrect</Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-            <TouchableOpacity
-              delayPressIn={0}
-              style={styles.button}
-              onPress={() => this.nextQuestion(decks, deckTitle)}
-              disabled={!this.state.answered}
-            >
-              <Text style={{ textAlign: 'center' }}>Next</Text>
-            </TouchableOpacity>
-          </View>
         </View>
+        {!this.state.showQuestion && (
+          <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                marginBottom: 25,
+              }}
+            >
+              <TouchableOpacity
+                style={[styles.button, styles.rightBtn, { width: 75 }]}
+                delayPressIn={0}
+                onPress={() => this.handlePress('right')}
+                disabled={this.state.showQuestion || this.state.answered}
+              >
+                <Text style={{ textAlign: 'center', color: 'white' }}>
+                  Correct
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.button, styles.wrongBtn, { width: 75 }]}
+                delayPressIn={0}
+                onPress={() => this.handlePress('wrong')}
+                disabled={this.state.showQuestion || this.state.answered}
+              >
+                <Text style={{ textAlign: 'center', color: 'white' }}>
+                  Incorrect
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TouchableOpacity
+                delayPressIn={0}
+                style={[styles.button, styles.NextBtn]}
+                onPress={() => this.nextQuestion(decks, deckTitle)}
+                disabled={!this.state.answered}
+              >
+                <Text style={{ textAlign: 'center', color: 'white' }}>
+                  Next
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
       </SafeAreaView>
     );
   }
@@ -151,8 +182,18 @@ class Quiz extends Component {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
+    paddingVertical: 15,
+    borderRadius: 5,
+    marginHorizontal: 20,
+  },
+  NextBtn: {
+    backgroundColor: 'tomato',
+  },
+  rightBtn: {
+    backgroundColor: 'green',
+  },
+  wrongBtn: {
+    backgroundColor: 'red',
   },
 });
 

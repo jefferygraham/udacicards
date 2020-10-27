@@ -7,6 +7,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -20,16 +21,27 @@ class AddCard extends Component {
   };
 
   handlePress = (deckTitle) => {
-    const card = this.state;
+    if (this.state.question === '' || this.state.answer === '') {
+      Alert.alert(
+        'Alert',
+        'You must enter a question and answer!',
+        [{ text: 'OK' }],
+        { cancelable: false }
+      );
+    } else {
+      const card = this.state;
 
-    this.props.dispatch(addCard(deckTitle, card));
+      this.props.dispatch(addCard(deckTitle, card));
 
-    this.setState({
-      question: '',
-      answer: '',
-    });
+      this.setState({
+        question: '',
+        answer: '',
+      });
 
-    addCardToDeck(deckTitle, card);
+      addCardToDeck(deckTitle, card);
+
+      this.props.navigation.goBack();
+    }
   };
 
   render() {
@@ -51,13 +63,13 @@ class AddCard extends Component {
           <TextInput
             placeholder='Question?'
             value={this.state.question}
-            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            style={[styles.input, { marginBottom: 15 }]}
             onChangeText={(question) => this.setState({ question: question })}
           />
           <TextInput
             placeholder='Answer'
             value={this.state.answer}
-            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            style={styles.input}
             onChangeText={(answer) => this.setState({ answer: answer })}
           />
         </View>
@@ -66,10 +78,9 @@ class AddCard extends Component {
           style={styles.button}
           onPress={() => {
             this.handlePress(deckTitle);
-            goBack();
           }}
         >
-          <Text>SUBMIT</Text>
+          <Text style={{ color: 'white' }}>SUBMIT</Text>
         </TouchableOpacity>
       </SafeAreaView>
     );
@@ -79,8 +90,19 @@ class AddCard extends Component {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
+    backgroundColor: 'tomato',
+    padding: 15,
+    borderRadius: 5,
+    marginHorizontal: 20,
+  },
+  input: {
+    width: 300,
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginHorizontal: 20,
+    paddingLeft: 10,
   },
 });
 
